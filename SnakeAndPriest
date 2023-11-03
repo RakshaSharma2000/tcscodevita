@@ -1,0 +1,30 @@
+def move_snakes(matrix, snakes):
+    N = len(matrix)
+    for t in range(1, T + 1):  # T is the number of time steps
+        for snake in snakes:
+            start_block, end_block, orientation = snake
+            if orientation == 'vertical':
+                i1, j1 = start_block
+                i2, j2 = end_block
+                i1 = (i1 - 1 + 1) % N  # Move up (cyclically)
+                i2 = (i2 - 1 + 1) % N  # Move up (cyclically)
+            else:  # orientation is 'horizontal'
+                i1, j1 = start_block
+                i2, j2 = end_block
+                j1 = (j1 - 1 + 1) % N  # Move right (cyclically)
+                j2 = (j2 - 1 + 1) % N  # Move right (cyclically)
+            # Update the snake's new positions in the matrix
+            for i in range(min(i1, i2), max(i1, i2) + 1):
+                for j in range(min(j1, j2), max(j1, j2) + 1):
+                    matrix[i][j] = t
+
+# Example usage:
+N = 5  # Matrix size
+T = 10  # Number of time steps
+matrix = [[0] * N for _ in range(N)]
+snakes = [((1, 5), (1, 8), 'horizontal'), ((3, 3), (5, 3), 'vertical')]
+move_snakes(matrix, snakes)
+
+# Print the matrix to visualize the snake movement over time
+for row in matrix:
+    print(row)
